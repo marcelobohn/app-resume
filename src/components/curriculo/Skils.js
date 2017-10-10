@@ -8,7 +8,7 @@ export default function Skils(props) {
     <div>
       <Panel collapsible defaultExpanded header="Habilidades" bsStyle="primary">
         {items && items.map((item, index) => (
-          <Label bsStyle="primary skil">{item}</Label>
+          <Label key={index} bsStyle="primary" className="skil">{item}</Label>
         ))}
       </Panel>
     </div>

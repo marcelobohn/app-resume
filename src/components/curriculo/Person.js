@@ -7,6 +7,7 @@ import TextField from './TextField';
 export default function Person(props) {
   const { name, birthday, country, region } = props.person;
   const { title, sumary } = props.resume;
+
   return (
     <div>
       <PageHeader>{name} <small>{title}</small></PageHeader>
