@@ -3,6 +3,10 @@ import React, { Component } from 'react';
 import Person from './Person';
 import Contact from './Contact';
 import Social from './Social';
+import Education from './Education';
+import Languages from './Languages';
+import Skils from './Skils';
+import Experiences from './Experiences';
 
 class Curriculo extends Component {
   constructor(props) {
@@ -11,19 +15,27 @@ class Curriculo extends Component {
       person: '',
       resume: '',
       contacts: '',
-      social: ''
+      social: '',
+      entities: '',
+      languages: '',
+      skils: '',
+      experiences: ''
     };
     this.getData();
   }
 
   getData(domain) {
-    fetch('https://gist.githubusercontent.com/marcelobohn/c6d9c18fad95b3903214ada73d4ffd46/raw/f055b6f8a15c621e268c21f4e7e0531380e6f6a4/resume')
+    fetch('https://gist.githubusercontent.com/marcelobohn/c6d9c18fad95b3903214ada73d4ffd46/raw')
       .then(response => response.json())
       .then(json => this.setState({
         person: json.person, 
         resume: json.resume,
         contacts: json.contacts,
-        social: json.social
+        social: json.social,
+        entities: json.education,
+        languages: json.languages,
+        skils: json.skils,
+        experiences: json.experiences
       }))
   }
 
@@ -32,7 +44,11 @@ class Curriculo extends Component {
       <div className="container">
         <Person person={ this.state.person } resume={ this.state.resume }/>
         <Contact contacts={ this.state.contacts }/>
-        <Social social={ this.state.social }/>
+        <Social items={ this.state.social }/>
+        <Education entities={ this.state.entities }/>
+        <Languages items={ this.state.languages }/>
+        <Skils items={ this.state.skils }/>
+        <Experiences items={ this.state.experiences }/>
       </div>
     );
   }

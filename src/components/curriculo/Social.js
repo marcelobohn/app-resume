@@ -5,11 +5,11 @@ import { Panel } from 'react-bootstrap';
 import TextField from './TextField';
 
 export default function Social(props) {
-  const { social } = props;
+  const { items } = props;
   return (
     <div>
-      <Panel header="Social">
-        {social && social.map((item, index) => (
+      <Panel collapsible defaultExpanded header="Social" bsStyle="primary">
+        {items && items.map((item, index) => (
           <TextField key={index} title={item.service} value={item.address}/>
         ))}
       </Panel>
