@@ -1,0 +1,93 @@
+{
+  "description": "resume JSON - http://www.jsonschemavalidator.net/",
+  "type": "object",
+  "properties": {
+    "person": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "birthday": {
+          "type": "string"
+        }
+      }
+    },
+    "resume": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "sumary": {
+          "type": "string"
+        },
+        "language": {
+          "type": "string",
+          "enum": [
+            "pt-br",
+            "en"
+          ]
+        }
+      }
+    },
+    "contacts": {
+      "type": "array"
+    },
+    "social": {
+      "type": "array"
+    },
+    "education": {
+      "type": "array"
+    },
+    "languages": {
+      "type": "array",
+      "contains": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "abbreviation": {
+            "type": "string",
+            "enum": [
+              "pt-br",
+              "en"
+            ]
+          },
+          "level": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "skils": {
+      "type": "array",
+      "contains": {
+        "type": "string"
+      }
+    },
+    "courses": {
+      "type": "array",
+      "contains": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "experiences": {
+      "type": "array",
+      "contains": {
+        "type": "object",
+        "properties": {
+          "company": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

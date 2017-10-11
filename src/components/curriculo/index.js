@@ -10,53 +10,39 @@ import Experiences from './Experiences';
 
 import { FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
 
+const schemaResume = require('../../schema');
+
 class Curriculo extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      person: '',
       resume: '',
-      contacts: '',
-      social: '',
-      entities: '',
-      languages: '',
-      skils: '',
-      experiences: ''
+      schemaIsValid: false
     };
   }
 
   cleanData() {
     this.setState({
-      person: '', 
       resume: '',
-      contacts: '',
-      social: '',
-      entities: '',
-      languages: '',
-      skils: '',
-      experiences: ''
+      schemaIsValid: false
     })
   }
 
-  getData(domain) {    
-    fetch(domain)
-      .then(response => response.json())
+  async getData(domain) {    
+    return await fetch(domain)
+      .then(response => {return response.json()})
       .then(json => this.setState({
-        person: json.person, 
-        resume: json.resume,
-        contacts: json.contacts,
-        social: json.social,
-        entities: json.education,
-        languages: json.languages,
-        skils: json.skils,
-        experiences: json.experiences
-      }))
+        resume: json
+      }));      
   }
 
-  handleKeyPress = (event) => {
+  handleKeyPress = async (event) => {
     if(event.key === 'Enter'){
       this.cleanData();
-      this.getData(event.target.value);
+      await this.getData(event.target.value);
+      const Validator = require('jsonschema').Validator;
+      const v = new Validator();
+      this.setState({schemaIsValid: v.validate(this.state.resume, schemaResume).valid});
     }
   }  
 
@@ -71,14 +57,14 @@ class Curriculo extends Component {
             placeholder="digite o endereço"
             onKeyPress={this.handleKeyPress}/>
           </FormGroup>
-          {this.state.person && <div>
-            <Person person={ this.state.person } resume={ this.state.resume }/>
-            <Contact contacts={ this.state.contacts }/>
-            <Social items={ this.state.social }/>
-            <Education entities={ this.state.entities }/>
-            <Languages items={ this.state.languages }/>
-            <Skils items={ this.state.skils }/>
-            <Experiences items={ this.state.experiences }/>
+          {this.state.schemaIsValid && <div>
+            <Person person={ this.state.resume.person } resume={ this.state.resume.resume }/>
+            <Contact contacts={ this.state.resume.contacts }/>
+            <Social items={ this.state.resume.social }/>
+            <Education entities={ this.state.resume.entities }/>
+            <Languages items={ this.state.resume.languages }/>
+            <Skils items={ this.state.resume.skils }/>
+            <Experiences items={ this.state.resume.experiences }/>
             </div>}
       </div>
     );
