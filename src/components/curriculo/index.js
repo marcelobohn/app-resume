@@ -8,6 +8,9 @@ import Languages from './Languages';
 import Skils from './Skils';
 import Experiences from './Experiences';
 
+import SchemaInvalid from './SchemaInvalid';
+import Error from './Error';
+
 import { FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
 
 const schemaResume = require('../../schema');
@@ -17,23 +20,31 @@ class Curriculo extends Component {
     super(props);
     this.state = {
       resume: '',
-      schemaIsValid: false
+      schemaIsValid: false,
+      error: ''
     };
   }
 
   cleanData() {
     this.setState({
       resume: '',
-      schemaIsValid: false
+      schemaIsValid: false,
+      error: ''
     })
   }
 
-  async getData(domain) {    
+  async getData(domain) {
     return await fetch(domain)
       .then(response => {return response.json()})
       .then(json => this.setState({
         resume: json
-      }));      
+      }))
+      .catch((error) => {
+        console.log('There has been a problem with your fetch operation: ' + error.message);
+        this.setState({
+          error: error.message
+        });
+      });
   }
 
   handleKeyPress = async (event) => {
@@ -44,7 +55,7 @@ class Curriculo extends Component {
       const v = new Validator();
       this.setState({schemaIsValid: v.validate(this.state.resume, schemaResume).valid});
     }
-  }  
+  }
 
   render() {
     return (
@@ -66,6 +77,8 @@ class Curriculo extends Component {
             <Skils items={ this.state.resume.skils }/>
             <Experiences items={ this.state.resume.experiences }/>
             </div>}
+          {this.state.resume && !this.state.schemaIsValid && <SchemaInvalid/>}
+          {this.state.error && <Error message={this.state.error}/>}
       </div>
     );
   }
