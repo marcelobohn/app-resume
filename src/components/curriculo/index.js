@@ -1,17 +1,10 @@
 import React, { Component } from 'react';
-
-import Person from './Person';
-import Contact from './Contact';
-import Social from './Social';
-import Education from './Education';
-import Languages from './Languages';
-import Skils from './Skils';
-import Experiences from './Experiences';
-
+import Body from './Body';
 import SchemaInvalid from './SchemaInvalid';
 import Error from './Error';
+import About from './About';
 
-import { FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
+import { FormGroup, ControlLabel, FormControl, Button, ButtonToolbar } from 'react-bootstrap';
 
 const schemaResume = require('../../schema');
 
@@ -21,7 +14,9 @@ class Curriculo extends Component {
     this.state = {
       resume: '',
       schemaIsValid: false,
-      error: ''
+      error: '',
+      showSchema: false,
+      showAbout: false
     };
   }
 
@@ -29,7 +24,9 @@ class Curriculo extends Component {
     this.setState({
       resume: '',
       schemaIsValid: false,
-      error: ''
+      error: '',
+      showSchema: false,
+      showAbout: false      
     })
   }
 
@@ -57,9 +54,25 @@ class Curriculo extends Component {
     }
   }
 
+  showSchemaClick = () => {
+    this.cleanData();
+    this.setState({showSchema: true});
+  }
+
+  showAboutClick = () => {
+    this.cleanData();
+    this.setState({showAbout: true});
+  }
+
   render() {
     return (
       <div className="container">
+        <ButtonToolbar className="App-title">
+          <Button bsStyle="primary">Visualizador</Button>
+          <Button bsStyle="primary" onClick={this.showSchemaClick}>Modelo</Button>
+          <Button bsStyle="primary" onClick={this.showAboutClick}>Sobre</Button>
+        </ButtonToolbar>
+
         <FormGroup>
           <ControlLabel>URL do currículo JSON</ControlLabel>
           <FormControl
@@ -67,18 +80,13 @@ class Curriculo extends Component {
             defaultValue={'https://gist.githubusercontent.com/marcelobohn/c6d9c18fad95b3903214ada73d4ffd46/raw'}
             placeholder="digite o endereço"
             onKeyPress={this.handleKeyPress}/>
-          </FormGroup>
-          {this.state.schemaIsValid && <div>
-            <Person person={ this.state.resume.person } resume={ this.state.resume.resume }/>
-            <Contact contacts={ this.state.resume.contacts }/>
-            <Social items={ this.state.resume.social }/>
-            <Education entities={ this.state.resume.entities }/>
-            <Languages items={ this.state.resume.languages }/>
-            <Skils items={ this.state.resume.skils }/>
-            <Experiences items={ this.state.resume.experiences }/>
-            </div>}
-          {this.state.resume && !this.state.schemaIsValid && <SchemaInvalid/>}
-          {this.state.error && <Error message={this.state.error}/>}
+        </FormGroup>
+
+        {this.state.resume && <Body resume={ this.state.resume }/>}
+        {this.state.resume && !this.state.schemaIsValid && <SchemaInvalid/>}
+        {this.state.error && <Error message={this.state.error}/>}
+        {this.state.showSchema && <pre>{JSON.stringify(schemaResume, undefined, 2)}</pre>}
+        {this.state.showAbout && <About/>}
       </div>
     );
   }
