@@ -3,8 +3,9 @@ import Body from './Body';
 import SchemaInvalid from './SchemaInvalid';
 import Error from './Error';
 import About from './About';
+import FormSearchResume from './FormSearchResume';
 
-import { FormGroup, ControlLabel, FormControl, Button, ButtonToolbar } from 'react-bootstrap';
+import { Button, ButtonToolbar } from 'react-bootstrap';
 
 const schemaResume = require('../../schema');
 
@@ -15,6 +16,7 @@ class Curriculo extends Component {
       resume: '',
       schemaIsValid: false,
       error: '',
+      showResume: true,
       showSchema: false,
       showAbout: false
     };
@@ -25,8 +27,9 @@ class Curriculo extends Component {
       resume: '',
       schemaIsValid: false,
       error: '',
+      showResume: false,
       showSchema: false,
-      showAbout: false      
+      showAbout: false
     })
   }
 
@@ -54,6 +57,11 @@ class Curriculo extends Component {
     }
   }
 
+  showResumeClick = () => {
+    this.cleanData();
+    this.setState({showResume: true});
+  }
+
   showSchemaClick = () => {
     this.cleanData();
     this.setState({showSchema: true});
@@ -67,21 +75,14 @@ class Curriculo extends Component {
   render() {
     return (
       <div className="container">
+        <h1>Resume JSON</h1>
         <ButtonToolbar className="App-title">
-          <Button bsStyle="primary">Visualizador</Button>
+          <Button bsStyle="primary" onClick={this.showResumeClick}>Visualizador</Button>
           <Button bsStyle="primary" onClick={this.showSchemaClick}>Modelo</Button>
           <Button bsStyle="primary" onClick={this.showAboutClick}>Sobre</Button>
         </ButtonToolbar>
 
-        <FormGroup>
-          <ControlLabel>URL do currículo JSON</ControlLabel>
-          <FormControl
-            type="text"
-            defaultValue={'https://gist.githubusercontent.com/marcelobohn/c6d9c18fad95b3903214ada73d4ffd46/raw'}
-            placeholder="digite o endereço"
-            onKeyPress={this.handleKeyPress}/>
-        </FormGroup>
-
+        {this.state.showResume && <FormSearchResume execute={this.handleKeyPress}/>}
         {this.state.resume && <Body resume={ this.state.resume }/>}
         {this.state.resume && !this.state.schemaIsValid && <SchemaInvalid/>}
         {this.state.error && <Error message={this.state.error}/>}
