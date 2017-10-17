@@ -18,6 +18,7 @@ class Curriculo extends Component {
       error: '',
       showResume: true,
       showSchema: false,
+      showSample: false,      
       showAbout: false
     };
   }
@@ -29,6 +30,7 @@ class Curriculo extends Component {
       error: '',
       showResume: false,
       showSchema: false,
+      showSample: false,      
       showAbout: false
     })
   }
@@ -67,6 +69,11 @@ class Curriculo extends Component {
     this.setState({showSchema: true});
   }
 
+  showSampleClick = () => {
+    this.cleanData();
+    this.setState({showSample: true});
+  }
+
   showAboutClick = () => {
     this.cleanData();
     this.setState({showAbout: true});
@@ -79,6 +86,7 @@ class Curriculo extends Component {
         <ButtonToolbar className="App-title">
           <Button bsStyle="primary" onClick={this.showResumeClick}>Visualizador</Button>
           <Button bsStyle="primary" onClick={this.showSchemaClick}>Modelo</Button>
+          <Button bsStyle="primary" onClick={this.showSampleClick}>Exemplo</Button>
           <Button bsStyle="primary" onClick={this.showAboutClick}>Sobre</Button>
         </ButtonToolbar>
 
@@ -86,7 +94,7 @@ class Curriculo extends Component {
         {this.state.resume && <Body resume={ this.state.resume }/>}
         {this.state.resume && !this.state.schemaIsValid && <SchemaInvalid/>}
         {this.state.error && <Error message={this.state.error}/>}
-        {this.state.showSchema && <pre>{JSON.stringify(schemaResume, undefined, 2)}</pre>}
+        {this.state.showSchema && <div>Modelo de validação na interpretação<pre>{JSON.stringify(schemaResume, undefined, 2)}</pre></div>}
         {this.state.showAbout && <About/>}
       </div>
     );

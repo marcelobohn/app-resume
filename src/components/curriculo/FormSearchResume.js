@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { FormGroup, ControlLabel, FormControl, Button} from 'react-bootstrap';
+import { FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
 
 export default function FormSearchResume(props) {
   const { execute } = props;
