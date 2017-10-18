@@ -16,6 +16,7 @@ class Curriculo extends Component {
       resume: '',
       schemaIsValid: false,
       error: '',
+      showHeader: true,
       showResume: true,
       showSchema: false,
       showSample: false,      
@@ -28,6 +29,7 @@ class Curriculo extends Component {
       resume: '',
       schemaIsValid: false,
       error: '',
+      showHeader: true,
       showResume: false,
       showSchema: false,
       showSample: false,      
@@ -79,19 +81,28 @@ class Curriculo extends Component {
     this.setState({showAbout: true});
   }
 
+  printClick = () => {
+    this.setState({showHeader: false});
+    setTimeout(() => {
+      window.print();
+      this.setState({showHeader: true});
+    }, 500);
+  }  
+  
   render() {
     return (
       <div className="container">
-        <h1>Resume JSON</h1>
-        <ButtonToolbar className="App-title">
-          <Button bsStyle="primary" onClick={this.showResumeClick}>Visualizador</Button>
-          <Button bsStyle="primary" onClick={this.showSchemaClick}>Modelo</Button>
-          <Button bsStyle="primary" onClick={this.showSampleClick}>Exemplo</Button>
-          <Button bsStyle="primary" onClick={this.showAboutClick}>Sobre</Button>
-        </ButtonToolbar>
-
+        {this.state.showHeader && <div>
+          <h1>Resume JSON</h1>
+          <ButtonToolbar className="App-title">
+            <Button bsStyle="primary" bsSize="small" onClick={this.showResumeClick}>Visualizador</Button>
+            <Button bsStyle="primary" bsSize="small" onClick={this.showSchemaClick}>Modelo</Button>
+            <Button bsStyle="primary" bsSize="small" onClick={this.showSampleClick}>Exemplo</Button>
+            <Button bsStyle="primary" bsSize="small" onClick={this.showAboutClick}>Sobre</Button>
+          </ButtonToolbar>
+          </div>}
         {this.state.showResume && <FormSearchResume execute={this.handleKeyPress}/>}
-        {this.state.resume && <Body resume={ this.state.resume }/>}
+        {this.state.resume && <Body resume={ this.state.resume } print= { this.printClick }/>}
         {this.state.resume && !this.state.schemaIsValid && <SchemaInvalid/>}
         {this.state.error && <Error message={this.state.error}/>}
         {this.state.showSchema && <div>Modelo de validação na interpretação<pre>{JSON.stringify(schemaResume, undefined, 2)}</pre></div>}

@@ -8,12 +8,16 @@ import Languages from './Languages';
 import Skils from './Skils';
 import Experiences from './Experiences';
 
+import { Button } from 'react-bootstrap';
+
 export default function Body(props) {
   const { person, resume, contacts, social, entities, languages, skils, experiences } = props.resume;
+  const { print } = props;
+
   return (
     <div>
       { props.resume &&
-        <div>
+        <div className="bodyResume">
           <Person person={ person } resume={ resume }/>
           <Contact contacts={ contacts }/>
           <Social items={ social }/>
@@ -21,6 +25,7 @@ export default function Body(props) {
           <Languages items={ languages }/>
           <Skils items={ skils }/>
           <Experiences items={ experiences }/>
+          <Button bsStyle="primary" bsSize="small" onClick={print}>Imprimir</Button>          
         </div>
       }
     </div>
