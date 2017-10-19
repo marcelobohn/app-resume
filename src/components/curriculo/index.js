@@ -6,6 +6,7 @@ import About from './About';
 import FormSearchResume from './FormSearchResume';
 
 import { Button, ButtonToolbar } from 'react-bootstrap';
+import EmbeddedGist from '../EmbeddedGist';
 
 const schemaResume = require('../../schema');
 
@@ -105,6 +106,7 @@ class Curriculo extends Component {
         {this.state.resume && <Body resume={ this.state.resume } print= { this.printClick }/>}
         {this.state.resume && !this.state.schemaIsValid && <SchemaInvalid/>}
         {this.state.error && <Error message={this.state.error}/>}
+        {this.state.showSample && <EmbeddedGist gist="marcelobohn/d4a4e187d48bc562ebf616e1dbfa5776" file="sample-resume.json"></EmbeddedGist>}
         {this.state.showSchema && <div>Modelo de validação na interpretação<pre>{JSON.stringify(schemaResume, undefined, 2)}</pre></div>}
         {this.state.showAbout && <About/>}
       </div>
