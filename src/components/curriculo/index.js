@@ -5,7 +5,7 @@ import Error from './Error';
 import About from './About';
 import FormSearchResume from './FormSearchResume';
 
-import { Button, ButtonToolbar } from 'react-bootstrap';
+import { Button, ButtonToolbar, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
 import EmbeddedGist from '../EmbeddedGist';
 
 const schemaResume = require('../../schema');
@@ -106,8 +106,18 @@ class Curriculo extends Component {
         {this.state.resume && <Body resume={ this.state.resume } print= { this.printClick }/>}
         {this.state.resume && !this.state.schemaIsValid && <SchemaInvalid/>}
         {this.state.error && <Error message={this.state.error}/>}
-        {this.state.showSample && <EmbeddedGist gist="marcelobohn/d4a4e187d48bc562ebf616e1dbfa5776" file="sample-resume.json"></EmbeddedGist>}
-        {this.state.showSchema && <div>Modelo de validação na interpretação<pre>{JSON.stringify(schemaResume, undefined, 2)}</pre></div>}
+        {this.state.showSample && 
+          <FormGroup>
+            <ControlLabel>Currículo de exemplo</ControlLabel>
+            <FormControl type="text" defaultValue={"https://gist.githubusercontent.com/marcelobohn/d4a4e187d48bc562ebf616e1dbfa5776/raw"}/>
+            <EmbeddedGist gist="marcelobohn/d4a4e187d48bc562ebf616e1dbfa5776" file="sample-resume.json"></EmbeddedGist>
+          </FormGroup>}
+        {this.state.showSchema && 
+          <FormGroup>
+            <ControlLabel>Modelo utilizado na validação</ControlLabel>
+            <FormControl type="text" defaultValue={"https://github.com/marcelobohn/app-resume/blob/master/src/schema.json"}/>
+            <pre>{JSON.stringify(schemaResume, undefined, 2)}</pre>
+          </FormGroup>}
         {this.state.showAbout && <About/>}
       </div>
     );

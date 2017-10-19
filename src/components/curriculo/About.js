@@ -3,17 +3,18 @@ import React from 'react';
 export default function About() {
   return (
     <div>
-      <h2>Objetivo</h2>
+      <h3>Objetivo</h3>
       <p>Estabelezer um padrão JSON para troca de currículos.</p>
-      <h2>Inspiração</h2>
+      <h3>Inspiração</h3>
       <p>
         Hoje temos NF-e e NFS-e que facilita o transito de informações de
-        compras e vendas. Ter um padrão digital para currículo vai facilitar a
+        compras e vendas.</p> 
+      <p>Ter um padrão digital para currículo vai facilitar a
         candidatos o envio de seus dados a diversos destinos e recrutadores
         receber de diversos candidatos e importar para o sistema de forma
         automatizada.
       </p>
-      <h2>Implementação</h2>
+      <h3>Implementação</h3>
       <p>Este site contém:</p>
       <ul>
       <li><b>Visualizador/Interpretador</b> que permite receber um arquivo JSON e exibir dentro de um formato para leitura.</li>
