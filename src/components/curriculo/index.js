@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
+import { Button, ButtonToolbar } from 'react-bootstrap';
+
 import Body from './Body';
 import SchemaInvalid from './SchemaInvalid';
 import Error from './Error';
 import About from './About';
+import Schema from './Schema';
+import Sample from './Sample';
 import FormSearchResume from './FormSearchResume';
-
-import { Button, ButtonToolbar, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
-import EmbeddedGist from '../EmbeddedGist';
 
 const schemaResume = require('../../schema');
 
@@ -18,7 +19,7 @@ class Curriculo extends Component {
       schemaIsValid: false,
       error: '',
       showHeader: true,
-      showResume: true,
+      showSearchResume: true,
       showSchema: false,
       showSample: false,      
       showAbout: false
@@ -31,7 +32,7 @@ class Curriculo extends Component {
       schemaIsValid: false,
       error: '',
       showHeader: true,
-      showResume: false,
+      showSearchResume: false,
       showSchema: false,
       showSample: false,      
       showAbout: false
@@ -62,9 +63,9 @@ class Curriculo extends Component {
     }
   }
 
-  showResumeClick = () => {
+  showSearchResumeClick = () => {
     this.cleanData();
-    this.setState({showResume: true});
+    this.setState({showSearchResume: true});
   }
 
   showSchemaClick = () => {
@@ -93,31 +94,25 @@ class Curriculo extends Component {
   render() {
     return (
       <div className="container">
-        {this.state.showHeader && <div>
-          <h1>Resume JSON</h1>
-          <ButtonToolbar className="App-title">
-            <Button bsStyle="primary" bsSize="small" onClick={this.showResumeClick}>Visualizador</Button>
-            <Button bsStyle="primary" bsSize="small" onClick={this.showSchemaClick}>Modelo</Button>
-            <Button bsStyle="primary" bsSize="small" onClick={this.showSampleClick}>Exemplo</Button>
-            <Button bsStyle="primary" bsSize="small" onClick={this.showAboutClick}>Sobre</Button>
-          </ButtonToolbar>
+        {this.state.showHeader && 
+          <div>
+            <h1>Resume JSON</h1>
+            <ButtonToolbar className="App-title">
+              <Button bsStyle="primary" bsSize="small" onClick={this.showSearchResumeClick}>Visualizador</Button>
+              <Button bsStyle="primary" bsSize="small" onClick={this.showSchemaClick}>Modelo</Button>
+              <Button bsStyle="primary" bsSize="small" onClick={this.showSampleClick}>Exemplo</Button>
+              <Button bsStyle="primary" bsSize="small" onClick={this.showAboutClick}>Sobre</Button>
+            </ButtonToolbar>
           </div>}
-        {this.state.showResume && <FormSearchResume execute={this.handleKeyPress}/>}
+        {this.state.showSearchResume && <FormSearchResume execute={this.handleKeyPress}/>}
         {this.state.resume && <Body resume={ this.state.resume } print= { this.printClick }/>}
         {this.state.resume && !this.state.schemaIsValid && <SchemaInvalid/>}
         {this.state.error && <Error message={this.state.error}/>}
         {this.state.showSample && 
-          <FormGroup>
-            <ControlLabel>Currículo de exemplo</ControlLabel>
-            <FormControl type="text" defaultValue={"https://gist.githubusercontent.com/marcelobohn/d4a4e187d48bc562ebf616e1dbfa5776/raw"}/>
-            <EmbeddedGist gist="marcelobohn/d4a4e187d48bc562ebf616e1dbfa5776" file="sample-resume.json"></EmbeddedGist>
-          </FormGroup>}
+          <Sample url={"https://gist.githubusercontent.com/marcelobohn/d4a4e187d48bc562ebf616e1dbfa5776/raw"} 
+            gist={"marcelobohn/d4a4e187d48bc562ebf616e1dbfa5776"} file={"sample-resume.json"} />}
         {this.state.showSchema && 
-          <FormGroup>
-            <ControlLabel>Modelo utilizado na validação</ControlLabel>
-            <FormControl type="text" defaultValue={"https://github.com/marcelobohn/app-resume/blob/master/src/schema.json"}/>
-            <pre>{JSON.stringify(schemaResume, undefined, 2)}</pre>
-          </FormGroup>}
+          <Schema url={"https://github.com/marcelobohn/app-resume/blob/master/src/schema.json"} schema={schemaResume}/>}     
         {this.state.showAbout && <About/>}
       </div>
     );
