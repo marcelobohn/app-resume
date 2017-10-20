@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button, ButtonToolbar } from 'react-bootstrap';
+import { Icon } from 'react-fa'
 
 import Body from './Body';
 import SchemaInvalid from './SchemaInvalid';
@@ -98,10 +99,10 @@ class Curriculo extends Component {
           <div>
             <h1>Resume JSON</h1>
             <ButtonToolbar className="App-title">
-              <Button bsStyle="primary" bsSize="small" onClick={this.showSearchResumeClick}>Visualizador</Button>
-              <Button bsStyle="primary" bsSize="small" onClick={this.showSchemaClick}>Modelo</Button>
-              <Button bsStyle="primary" bsSize="small" onClick={this.showSampleClick}>Exemplo</Button>
-              <Button bsStyle="primary" bsSize="small" onClick={this.showAboutClick}>Sobre</Button>
+              <Button bsStyle="success" bsSize="small" onClick={this.showSearchResumeClick}><Icon name="file-text-o"/> Visualizador</Button>
+              <Button bsStyle="primary" bsSize="small" onClick={this.showSchemaClick}><Icon name="code"/> Modelo</Button>
+              <Button bsStyle="primary" bsSize="small" onClick={this.showSampleClick}><Icon name="code"/> Exemplo</Button>
+              <Button bsStyle="primary" bsSize="small" onClick={this.showAboutClick}> Sobre</Button>
             </ButtonToolbar>
           </div>}
         {this.state.showSearchResume && <FormSearchResume execute={this.handleKeyPress}/>}
