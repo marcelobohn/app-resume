@@ -9,6 +9,7 @@ import Skils from './Skils';
 import Experiences from './Experiences';
 
 import { Button } from 'react-bootstrap';
+import { Icon } from 'react-fa'
 
 export default function Body(props) {
   const { person, resume, contacts, social, education, languages, skils, experiences } = props.resume;
@@ -25,7 +26,7 @@ export default function Body(props) {
           <Languages items={ languages }/>
           <Skils items={ skils }/>
           <Experiences items={ experiences }/>
-          <Button bsStyle="primary" bsSize="small" onClick={print}>Imprimir</Button>          
+          <Button bsStyle="primary" bsSize="small" onClick={print}><Icon name="print" /> Imprimir</Button>          
         </div>
       }
     </div>
