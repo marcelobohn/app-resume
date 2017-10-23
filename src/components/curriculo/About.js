@@ -20,7 +20,7 @@ export default function About() {
       <li><b>Visualizador/Interpretador</b> que permite receber um arquivo JSON e exibir dentro de um formato para leitura.</li>
       <li><b>Modelo/Schema</b> contém a regra da estrutura do arquivo a ser criado, é usado para verificar se o JSON do currículo é válido</li>
       <li><b>Exemplo</b> arquivo JSON de exemplo</li>      
-      <li>URL para baixar os fontes: https://github.com/marcelobohn/app-resume</li>
+      <li>URL para baixar os fontes: <a href="https://github.com/marcelobohn/app-resume">https://github.com/marcelobohn/app-resume</a></li>
       </ul>
     </div>
   );
